@@ -1,6 +1,8 @@
 # MessagePublisherSubscriber
 A publish/subscribe pattern using [MassTransit](https://masstransit-project.com/) library and RabbitMq for messaging.
 
+![Alt text](docs/publish-subscribe.jpg?raw=true "Title")
+
 ## Prerequisites
 * RabbitMq
 * MongoDb
