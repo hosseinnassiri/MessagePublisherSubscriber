@@ -1,12 +1,21 @@
 # MessagePublisherSubscriber
 A publish/subscribe pattern using [MassTransit](https://masstransit-project.com/) library and RabbitMq for messaging.
 
-![Alt text](docs/publish-subscribe.jpg?raw=true "Title")
-
 ## Prerequisites
-* RabbitMq
-* MongoDb
-* .Net Core
+You should have a basic understanding of .Net Core worker service projects and RabbitMQ.
+
+## MassTransit
+MassTransit is an open-source message bus framework for .NET which can route messages over MSMQ, RabbitMQ, Azure Service Bus, .... 
+
+It also supports multicast, observers, storing messages for audits, versioning, encryption, sagas, retries, transactions, distributed systems, and other features.
+
+More information about MassTransit can be found [here](https://masstransit-project.com/getting-started/).
+
+## RabbitMQ
+RabbitMQ is an open-source message-broker software that originally implemented the Advanced Message Queuing Protocol. It monitors whether the message has been delivered or not, using an acknowledge.
+
+## High-level architecture
+![Alt text](docs/publish-subscribe.jpg?raw=true "Title")
 
 ## How to run the application
 ### RabbitMq settings
