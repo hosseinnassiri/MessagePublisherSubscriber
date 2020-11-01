@@ -1,0 +1,7 @@
+docker container run -d --name my-local-rabbit -p 4369:4369 -p 5671:5671 -p 5672:5672 -p 25672:25672 -p 15671:15671 -p 8080:15672 rabbitmq:3-management
+
+docker run -d --hostname my-local-rabbit --name my-rabbit-container-1 -e RABBITMQ_DEFAULT_USER=myrabbitAdmin -e RABBITMQ_DEFAULT_PASS=password$1 rabbitmq:3-management
+
+docker run -it --rm --name rabbit-container-2 -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+
+docker run -it --rm --hostname my-local-rabbit --name my-rabbit-container-1 -e RABBITMQ_DEFAULT_USER=myrabbitAdmin -e RABBITMQ_DEFAULT_PASS=password$1 -p 5672:5672 -p 15672:15672 rabbitmq:3-management
