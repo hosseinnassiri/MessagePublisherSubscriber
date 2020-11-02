@@ -45,7 +45,7 @@ namespace MessagePublisher
 
 					await _publisherEndpoint.Publish<ISomethingHappened>(new {
 						Data = value,
-						Date = DateTimeOffset.UtcNow
+						Timestamp = DateTimeOffset.UtcNow
 					}).ConfigureAwait(false);
 				}
 			}

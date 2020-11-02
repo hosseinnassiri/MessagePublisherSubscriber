@@ -4,8 +4,15 @@ namespace MessageContracts
 {
 	public interface ISomethingHappened : IEvent
 	{
+		/// <summary>
+		/// Message data
+		/// </summary>
 		string Data { get; }
-		DateTimeOffset Date { get; }
+
+		/// <summary>
+		/// Message timestamp
+		/// </summary>
+		DateTimeOffset Timestamp { get; }
 	}
 
 	public interface IEvent
