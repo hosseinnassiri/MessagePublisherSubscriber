@@ -1,7 +1,7 @@
 ﻿using MongoDB.Driver;
 using System;
 
-namespace MessageProcessor.BusConfiguration
+namespace MessageProcessor.BusConfiguration.AuditStore.MongoDb
 {
 	public sealed class MongoDbConfigurator : IMongoDbConfigurator
 	{
@@ -17,8 +17,10 @@ namespace MessageProcessor.BusConfiguration
 
 		public ConfigurationMongoDbSettings Settings { get; }
 
-		public string Connection {
-			set {
+		public string Connection
+		{
+			set
+			{
 				if (string.IsNullOrWhiteSpace(value))
 				{
 					throw new ArgumentException("Value should no be empty.", nameof(Connection));
@@ -31,11 +33,15 @@ namespace MessageProcessor.BusConfiguration
 				}
 			}
 		}
-		public string DatabaseName {
+		public string DatabaseName
+		{
 			set => Settings.DatabaseName = value;
 		}
-		public string CollectionName {
-			set {
+
+		public string CollectionName
+		{
+			set
+			{
 				if (string.IsNullOrWhiteSpace(value))
 				{
 					throw new ArgumentException("Value should no be empty.", nameof(CollectionName));

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MessagePublisher
 {
-	public class Publisher
+	public sealed class Publisher
 	{
 		private readonly IBusControl _busControl;
 		private readonly IPublishEndpoint _publisherEndpoint;

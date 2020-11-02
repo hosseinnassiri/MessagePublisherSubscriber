@@ -1,5 +1,6 @@
 ﻿using MassTransit;
 using MessageContracts;
+using MessageProcessor.BusConfiguration.AuditStore.MongoDb;
 using MessageProcessor.Handlers;
 using MessageProcessor.Observers;
 using Microsoft.Extensions.Configuration;

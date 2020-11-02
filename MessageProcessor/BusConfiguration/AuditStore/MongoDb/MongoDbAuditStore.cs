@@ -1,6 +1,6 @@
-﻿namespace MessageProcessor.BusConfiguration
+﻿namespace MessageProcessor.BusConfiguration.AuditStore.MongoDb
 {
-	public class MongoDbAuditStoreSettings
+	public sealed class MongoDbAuditStoreSettings
 	{
 		public string Connection { get; set; } = string.Empty;
 		public string DatabaseName { get; set; } = string.Empty;

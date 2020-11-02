@@ -2,7 +2,7 @@
 using MassTransit.MongoDbIntegration.Audit;
 using System;
 
-namespace MessageProcessor.BusConfiguration
+namespace MessageProcessor.BusConfiguration.AuditStore.MongoDb
 {
 	public static class MongoDBAuditStoreConfiguratorExtensions
 	{
@@ -51,7 +51,10 @@ namespace MessageProcessor.BusConfiguration
 			ConfigurationMongoDbSettings mongoDbSettings,
 			Action<IMessageFilterConfigurator>? configureFilter = default)
 		{
-			var auditStore = new MongoDbAuditStore(mongoDbSettings.Connection, mongoDbSettings.DatabaseName, mongoDbSettings.CollectionName);
+			var auditStore = new MongoDbAuditStore(
+				mongoDbSettings.Connection,
+				mongoDbSettings.DatabaseName,
+				mongoDbSettings.CollectionName);
 			configurator.ConnectSendAuditObservers(auditStore, configureFilter);
 			configurator.ConnectConsumeAuditObserver(auditStore, configureFilter);
 		}

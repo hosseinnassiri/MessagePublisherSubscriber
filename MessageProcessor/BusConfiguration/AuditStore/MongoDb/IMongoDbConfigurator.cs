@@ -1,6 +1,6 @@
 ﻿using MongoDB.Driver;
 
-namespace MessageProcessor.BusConfiguration
+namespace MessageProcessor.BusConfiguration.AuditStore.MongoDb
 {
 	public interface IMongoDbConfigurator
 	{
@@ -20,7 +20,7 @@ namespace MessageProcessor.BusConfiguration
 		string CollectionName { set; }
 
 		/// <summary>
-		/// Gets the MongoDB settings <see cref="ConfigurationMongoDbSettings"/>
+		/// Gets the MongoDb settings <see cref="ConfigurationMongoDbSettings"/>
 		/// </summary>
 		ConfigurationMongoDbSettings Settings { get; }
 	}

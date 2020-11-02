@@ -1,4 +1,4 @@
-﻿namespace MessagePublisher
+﻿namespace MessageProcessor.BusConfiguration
 {
 	public sealed class RabbitMqSettings
 	{
