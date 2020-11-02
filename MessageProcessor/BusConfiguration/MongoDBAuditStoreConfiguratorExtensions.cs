@@ -2,7 +2,7 @@
 using MassTransit.MongoDbIntegration.Audit;
 using System;
 
-namespace MessageProcessor
+namespace MessageProcessor.BusConfiguration
 {
 	public static class MongoDBAuditStoreConfiguratorExtensions
 	{

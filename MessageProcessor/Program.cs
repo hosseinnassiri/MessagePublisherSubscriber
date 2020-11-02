@@ -1,3 +1,4 @@
+using MessageProcessor.BusConfiguration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
@@ -6,7 +7,7 @@ using System;
 
 namespace MessageProcessor
 {
-    public class Program
+	public class Program
     {
         public static void Main(string[] args)
         {
@@ -27,10 +28,8 @@ namespace MessageProcessor
                     services.AddMassTransitBus(hostingContext.Configuration);
                     services.AddSingleton<ILoggerFactory, LoggerFactory>();
                     services.AddSingleton(typeof(ILogger<>), typeof(Logger<>));
-                    services.PostConfigure<HostOptions>(option =>
-                    {
-                        option.ShutdownTimeout = TimeSpan.FromSeconds(60);
-                    });
+
+					services.PostConfigure<HostOptions>(option => option.ShutdownTimeout = TimeSpan.FromSeconds(60));
                     services.AddHostedService<Worker>();
                 })
                 .UseSerilog((hostingContext, loggerConfiguration) => loggerConfiguration

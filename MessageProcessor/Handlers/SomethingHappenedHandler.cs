@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MessageProcessor
+namespace MessageProcessor.Handlers
 {
-    public class SomethingHappenedHandler : IConsumer<ISomethingHappened>
-    {
+	public class SomethingHappenedHandler : IConsumer<ISomethingHappened>
+	{
 		private readonly ILogger<SomethingHappenedHandler> _logger;
 
 		public SomethingHappenedHandler(ILogger<SomethingHappenedHandler> logger)
@@ -17,7 +17,7 @@ namespace MessageProcessor
 		}
 
 		public Task Consume(ConsumeContext<ISomethingHappened> context)
-        {
+		{
 			var loggingState = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase) {
 				[nameof(context.MessageId)] = context.MessageId.GetValueOrDefault()
 			};
@@ -26,7 +26,7 @@ namespace MessageProcessor
 			{
 				_logger.LogDebug("Consuming message: {@message}", context.Message);
 			}
-            return Task.CompletedTask;
-        }
-    }
+			return Task.CompletedTask;
+		}
+	}
 }

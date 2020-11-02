@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MessageProcessor
 {
-    public sealed class Worker : BackgroundService
+	public sealed class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
         // the worker service is going to be registered as singleton,
@@ -52,7 +52,7 @@ namespace MessageProcessor
             {
                 _logger.LogError(ex, "Operation canceled {message}", ex.Message);
             }
-            catch (Exception ex)
+			catch (Exception ex)
             {
                 _logger.LogCritical(ex, "An unhandled exception occurred {message}", ex.Message);
             }

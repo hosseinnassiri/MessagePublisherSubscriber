@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
-namespace MessageProcessor
+namespace MessageProcessor.Observers
 {
 	public sealed class ReceiveObserver : IReceiveEndpointObserver
 	{

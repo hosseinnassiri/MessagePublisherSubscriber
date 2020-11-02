@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace MessageProcessor
+namespace MessageProcessor.Observers
 {
 	public sealed class ConsumeObserver<T> : IConsumeMessageObserver<T> where T : class
 	{

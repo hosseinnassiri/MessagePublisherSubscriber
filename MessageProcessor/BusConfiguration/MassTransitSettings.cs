@@ -1,7 +1,7 @@
-﻿namespace MessageProcessor
+﻿namespace MessageProcessor.BusConfiguration
 {
-    public class MassTransitSettings
-    {
+	public class MassTransitSettings
+	{
 		public RabbitMqSettings RabbitMqSettings { get; set; } = default!;
 		public MongoDbAuditStoreSettings MongoDbAuditStore { get; set; } = default!;
 	}
