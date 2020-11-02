@@ -3,16 +3,20 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30611.23
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageProcessor", "MessageProcessor\MessageProcessor.csproj", "{4157C60A-8C9B-4087-80E4-3770DFC5EB74}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageProcessor", "src\MessageProcessor\MessageProcessor.csproj", "{4157C60A-8C9B-4087-80E4-3770DFC5EB74}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{CEA7055D-75BA-46EF-8DB9-3454C1824562}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageContracts", "MessageContracts\MessageContracts.csproj", "{7BAA6D13-A250-4B1B-B2E5-968B48A58429}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessageContracts", "src\MessageContracts\MessageContracts.csproj", "{7BAA6D13-A250-4B1B-B2E5-968B48A58429}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessagePublisher", "MessagePublisher\MessagePublisher.csproj", "{7B2CD7A1-ED82-4F59-BF35-8FE08415DC78}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MessagePublisher", "src\MessagePublisher\MessagePublisher.csproj", "{7B2CD7A1-ED82-4F59-BF35-8FE08415DC78}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Subscribers", "Subscribers", "{99AA18D1-F44B-4AAA-AB06-AED2CAB891C3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Publisher", "Publisher", "{AFD8E791-EBC5-4B16-A796-DA714FD8CF3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4157C60A-8C9B-4087-80E4-3770DFC5EB74} = {99AA18D1-F44B-4AAA-AB06-AED2CAB891C3}
+		{7B2CD7A1-ED82-4F59-BF35-8FE08415DC78} = {AFD8E791-EBC5-4B16-A796-DA714FD8CF3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B354C178-7604-42F4-8CBA-87402A8C2AC2}
