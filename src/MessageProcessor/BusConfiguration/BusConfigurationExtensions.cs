@@ -1,10 +1,10 @@
 ﻿using MassTransit;
 using MessageContracts;
-using MessageProcessor.BusConfiguration.AuditStore.MongoDb;
 using MessageProcessor.Handlers;
 using MessageProcessor.Observers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using MassTransit.MongoDbIntegration.Configuration;
 
 namespace MessageProcessor.BusConfiguration
 {
@@ -29,11 +29,10 @@ namespace MessageProcessor.BusConfiguration
 							host.Username(busSettings.RabbitMqSettings.UserName);
 							host.Password(busSettings.RabbitMqSettings.Password);
 						});
-						config.UseMongoDBAuditStore(x => {
-							x.Connection = busSettings.MongoDbAuditStore.Connection;
-							x.DatabaseName = busSettings.MongoDbAuditStore.DatabaseName;
-							x.CollectionName = busSettings.MongoDbAuditStore.CollectionName;
-						});
+						config.UseMongoDbAuditStore(busSettings.MongoDbAuditStore.Connection,
+							busSettings.MongoDbAuditStore.DatabaseName,
+							busSettings.MongoDbAuditStore.CollectionName
+						);
 
 						var receiverObserver = serviceProvider.GetRequiredService<IReceiveEndpointObserver>();
 						config.Message<ISomethingHappened>(x =>

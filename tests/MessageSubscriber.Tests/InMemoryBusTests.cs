@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace MessageSubscriber.Tests
 {
-    [TestClass]
-    public class InMemoryBusTests
-    {
+	[TestClass]
+	public class InMemoryBusTests
+	{
 		private InMemoryTestHarness _harness;
 
 		[TestInitialize]

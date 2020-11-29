@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace MessagePublisher
 {
 	internal class Program
-    {
+	{
 		public static async Task Main(string[] args)
 		{
 			// create service collection
@@ -26,8 +26,7 @@ namespace MessagePublisher
 		private static void ConfigureServices(IServiceCollection services)
 		{
 			// configure logging
-			services.AddLogging(builder =>
-			{
+			services.AddLogging(builder => {
 				builder.AddConsole();
 				builder.AddDebug();
 			});
