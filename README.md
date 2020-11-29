@@ -1,8 +1,10 @@
-# MessagePublisherSubscriber
+# Publish / Subscribe messaging
 A publish/subscribe pattern using [MassTransit](https://masstransit-project.com/) library and RabbitMq for messaging.
 
 # Introduction
-TODO
+In distributed architecture, different components of the system often need to communicate to other components and send some information about the events that happened on their side. They can notify interested consumer application(s) asynchronously, using  messages.
+
+Asynchronous messaging is an effective way to decouple publishers from consumers, and avoid blocking the publisher to wait for a response.
 
 ## Audience
 TODO

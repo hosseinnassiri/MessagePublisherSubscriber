@@ -3,7 +3,3 @@
 3 - use mongodb in docker
 4 - add mongodb audit store configurator to masstransit
 5 - use docker compose for the whole project
-
-
-* find open source projects in github 
-* email the masstransit owner
