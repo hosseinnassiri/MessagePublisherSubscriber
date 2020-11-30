@@ -1,5 +1,0 @@
-1 - update readme
-2 - add tags to github repository
-3 - use mongodb in docker
-4 - add mongodb audit store configurator to masstransit
-5 - use docker compose for the whole project
