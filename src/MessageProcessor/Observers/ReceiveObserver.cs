@@ -26,7 +26,7 @@ namespace MessageProcessor.Observers
 
 		public Task Ready(ReceiveEndpointReady ready)
 		{
-			_logger.LogDebug("Endpoint is read to use: {@endpoint}", ready.ReceiveEndpoint);
+			_logger.LogDebug("Endpoint is ready to use: {@endpoint}", ready.ReceiveEndpoint);
 			return Task.CompletedTask;
 		}
 

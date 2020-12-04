@@ -36,7 +36,7 @@ namespace MessageProcessor.Observers
 
 			using (_logger.BeginScope(loggingState))
 			{
-				_logger.LogDebug("Message consumed successfully");
+				_logger.LogDebug("Message consumed successfully.");
 			}
 			return Task.CompletedTask;
 		}

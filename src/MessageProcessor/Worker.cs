@@ -1,4 +1,6 @@
 using MassTransit;
+using MessageContracts;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using System;
@@ -31,6 +33,9 @@ namespace MessageProcessor
 		public override async Task StartAsync(CancellationToken cancellationToken)
 		{
 			_logger.LogInformation("Starting the bus...");
+			using var scope = _serviceProvider.CreateScope();
+			var consumerObserver = scope.ServiceProvider.GetRequiredService<IConsumeMessageObserver<ISomethingHappened>>();
+			_busControl.ConnectConsumeMessageObserver(consumerObserver);
 			//NOTE: passing cancellation token to bus
 			await _busControl.StartAsync(cancellationToken).ConfigureAwait(false);
 		}
@@ -65,7 +70,7 @@ namespace MessageProcessor
 		public override async Task StopAsync(CancellationToken cancellationToken)
 		{
 			var sw = Stopwatch.StartNew();
-			await _busControl.StartAsync(cancellationToken).ConfigureAwait(false);
+			await _busControl.StopAsync(cancellationToken).ConfigureAwait(false);
 			await base.StopAsync(cancellationToken).ConfigureAwait(false);
 			_logger.LogInformation("Completed shutdown in {elapsed} ms.", sw.ElapsedMilliseconds);
 		}
