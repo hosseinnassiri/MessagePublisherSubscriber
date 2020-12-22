@@ -20,8 +20,6 @@ To have a template for implementing Publish / Subscribe pattern in .net using Ra
 
 ## TODO
 1. add git hub action to the project
-1. convert to .net 5
-1. use mongodb in docker
 1. use docker compose for the whole project
 
 ## Prerequisites
@@ -41,7 +39,11 @@ RabbitMQ is an open-source message-broker software that originally implemented t
 ![Alt text](docs/publish-subscribe.jpg?raw=true "Title")
 
 ## How to run the application
-### RabbitMq settings
+### Setup RabbitMQ on container on Windows
+``` powershell
+docker run -it --rm --hostname my-local-rabbit --name my-rabbit-container-1 -e RABBITMQ_DEFAULT_USER=myRabbitAdmin -e RABBITMQ_DEFAULT_PASS=password1 -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+```
+
 Add RabbitMq settings in appsettings.json of **MessageProcessor** and **MessagePublisher** projects
 ``` json
 ...
@@ -57,11 +59,16 @@ Add RabbitMq settings in appsettings.json of **MessageProcessor** and **MessageP
 }
 ...
 ```
-You can use docker to setup a RabbitMq:
+
+### Setup MongoDB on container on Windows
+First you need to create a volume so you can persist the data even when the container is stopped:
 ``` powershell
-docker run -it --rm --hostname my-local-rabbit --name my-rabbit-container-1 -e RABBITMQ_DEFAULT_USER=myRabbitAdmin -e RABBITMQ_DEFAULT_PASS=password1 -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+docker volume create --name=mongodata
 ```
-### MongoDb settings
+Then, the next step will pull the database image if it doesn’t already exist, and will launch a running instance using the mounted volume that we created in previous step:
+``` powershell
+docker run -it --rm --name mongodb -v mongodata:/data/db -p 27017:27017 mongo:windowsservercore
+```
 Configure MongoDb in the appsettings.json in **MessageProcessor** to store the received messages automatically:
 ``` json
 ...

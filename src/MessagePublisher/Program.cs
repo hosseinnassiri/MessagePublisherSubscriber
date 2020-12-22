@@ -20,7 +20,7 @@ namespace MessagePublisher
 			var serviceProvider = services.BuildServiceProvider();
 
 			// entry to run app
-			await serviceProvider.GetService<Publisher>().Run().ConfigureAwait(false);
+			await serviceProvider.GetRequiredService<Publisher>().Run().ConfigureAwait(false);
 		}
 
 		private static void ConfigureServices(IServiceCollection services)
@@ -49,9 +49,7 @@ namespace MessagePublisher
 							host.Password(busSettings.RabbitMqSettings.Password);
 						});
 
-						config.Message<ISomethingHappened>(x => {
-							x.SetEntityName(busSettings.RabbitMqSettings.PublishExchangeName);
-						});
+						config.Message<ISomethingHappened>(x => x.SetEntityName(busSettings.RabbitMqSettings.PublishExchangeName));
 					})
 				);
 			});

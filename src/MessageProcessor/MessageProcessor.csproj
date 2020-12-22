@@ -2,6 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFramework>net5.0</TargetFramework>
+		<AnalysisLevel>latest</AnalysisLevel>
 		<UserSecretsId>dotnet-MessageProcessor-9E6B4509-5685-4F05-B9B0-BA0BF7C0D7BA</UserSecretsId>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
