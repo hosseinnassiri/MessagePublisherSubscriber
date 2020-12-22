@@ -19,6 +19,7 @@ Asynchronous messaging helps applications to handle failures more effectively, a
 To have a template for implementing Publish / Subscribe pattern in .net using RabbitMQ as message broker, ready to be used in real applications.
 
 ## TODO
+1. add git hub action to the project
 1. convert to .net 5
 1. use mongodb in docker
 1. use docker compose for the whole project

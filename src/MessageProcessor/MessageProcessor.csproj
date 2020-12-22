@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
 
 	<PropertyGroup>
-		<TargetFramework>netcoreapp3.1</TargetFramework>
+		<TargetFramework>net5.0</TargetFramework>
 		<UserSecretsId>dotnet-MessageProcessor-9E6B4509-5685-4F05-B9B0-BA0BF7C0D7BA</UserSecretsId>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
@@ -9,9 +9,9 @@
 
 	<ItemGroup>
 		<PackageReference Include="MassTransit.RabbitMQ" Version="7.0.7" />
-		<PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.9" />
-		<PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.9" />
-		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="3.1.9" />
+		<PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.WindowsServices" Version="5.0.1" />
+		<PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
 		<PackageReference Include="MassTransit" Version="7.0.7" />
 		<PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.7" />
 		<PackageReference Include="MassTransit.MongoDb" Version="7.0.7" />
