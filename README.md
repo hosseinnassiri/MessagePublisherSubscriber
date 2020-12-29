@@ -1,5 +1,5 @@
 # Publish / Subscribe messaging
-A publish/subscribe pattern using [MassTransit](https://masstransit-project.com/) library and RabbitMq for messaging.
+A publish / subscribe pattern with .Net 5.0 Worker and using [MassTransit](https://masstransit-project.com/) library and RabbitMq for messaging.
 
 ## Introduction
 In distributed architecture, different components of the system often need to communicate to other components and send some information about the events that happened on their side (An event is something that happened in a component, a change or an action that has taken place). They can notify interested consumer application(s) asynchronously, using  messages.
@@ -19,8 +19,7 @@ Asynchronous messaging helps applications to handle failures more effectively, a
 To have a template for implementing Publish / Subscribe pattern in .net using RabbitMQ as message broker, ready to be used in real applications.
 
 ## TODO
-1. add git hub action to the project
-1. use docker compose for the whole project
+1. add git hub action for CI / CD
 1. add healthcheck for subscriber
 
 ## Prerequisites
@@ -39,20 +38,117 @@ RabbitMQ is an open-source message-broker software that originally implemented t
 ## High-level architecture
 ![Alt text](docs/publish-subscribe.jpg?raw=true "Title")
 
-## How to run the application
-### Setup RabbitMQ on container on Windows
-``` powershell
-docker run -it --rm --hostname my-local-rabbit --name my-rabbit-container-1 -e RABBITMQ_DEFAULT_USER=myRabbitAdmin -e RABBITMQ_DEFAULT_PASS=password1 -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+
+## How to run the application without docker-compose
+### Configure [docker-compose](docker-compose.yml)
+* Network
+
+Define a shared network between all services:
+``` yaml
+networks:
+  my-network-name:
 ```
 
-Add RabbitMq settings in appsettings.json of **MessageProcessor** and **MessagePublisher** projects
+* Volumes
+
+You need to create a volume so you can persist the MongoDB data even when the container is stopped:
+``` yaml
+volumes:
+  mongodb_data:
+    name: mongodata
+```
+
+* RabbitMQ
+``` yaml
+rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbit
+      - RABBITMQ_DEFAULT_PASS=rabbit
+    image: rabbitmq:3-management
+    networks:
+      - my-network-name
+```
+
+* MongoDB
+
+Note that, I exposed mongodb process to port 27018 as I already have a mongodb installed on my host using the default 27017 port.
+
+When you're using containers in windows, you need to define the path for volume like this, otherwise it's throwing error:
+``` yaml
+mongo:
+    container_name: mongo
+    image: mongo:windowsservercore
+    restart: always
+    volumes:
+      - mongodb_data:c:/data/db
+    ports:
+      - 27018:27017
+    networks:
+      - my-network-name
+```
+
+* Subscriber
+
+Configure the subscriber (MessageProcessor worker service project):
+``` yaml
+messageprocessor:
+    image: ${DOCKER_REGISTRY-}messageprocessor
+    build:
+      context: .
+      dockerfile: src\MessageProcessor\Dockerfile
+    restart: on-failure
+    depends_on:
+      - mongo
+      - rabbitmq
+    networks:
+      - my-network-name
+```
+
+* Publisher
+Now confiure the publisher web api project:
+``` yaml
+  messagepublisherapi:
+    image: ${DOCKER_REGISTRY-}messagepublisherapi
+    build:
+      context: .
+      dockerfile: src\MessagePublisherApi\Dockerfile
+    depends_on:
+      - rabbitmq
+    networks:
+      - my-network-name
+```
+
+Run the following docker-compose command from your command line or just simply run the whole application from Visual Studio 2019.
+``` powershell
+docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
+```
+
+Then you can send messages using MessagePublisherApi web api application. You can use the swagger or the following curl command:
+``` powershell
+curl -X POST "https://localhost:63769/Publisher/publish" -H  "accept: */*" -H  "Content-Type: application/json" -d "{\"data\":\"this is your message data!\"}"
+```
+Note that, the port might be different.
+
+## How to run the application without docker-compose
+### Setup RabbitMQ on container on Windows
+``` powershell
+docker run -it --rm --hostname rabbitmq --name my-rabbitmq -e RABBITMQ_DEFAULT_USER=rabbit -e RABBITMQ_DEFAULT_PASS=rabbit -p 5672:5672 -p 15672:15672 rabbitmq:3-management
+```
+
+Add RabbitMq settings in appsettings.json of **MessageProcessor** and **MessagePublisher** projects:
+Note that, you need to change the hostname to *localhost* when running your application from container host.
 ``` json
 ...
 "MassTransitSettings": {
     "RabbitMqSettings": {
         "Host": "localhost",
-        "UserName": "myRabbitAdmin",
-        "Password": "password1",
+        "UserName": "rabbit",
+        "Password": "rabbit",
         "PublishExchangeName": "my-exchange-1",
         "ListenerQueueName": "my-listener-queue-1"
     },
