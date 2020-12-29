@@ -42,12 +42,11 @@ services:
     networks:
       - my-network-name
 
-  messagepublisher:
-    image: ${DOCKER_REGISTRY-}messagepublisher
+  messagepublisherapi:
+    image: ${DOCKER_REGISTRY-}messagepublisherapi
     build:
       context: .
-      dockerfile: src\MessagePublisher\Dockerfile
-    restart: on-failure
+      dockerfile: src\MessagePublisherApi\Dockerfile
     depends_on:
       - rabbitmq
     networks:
