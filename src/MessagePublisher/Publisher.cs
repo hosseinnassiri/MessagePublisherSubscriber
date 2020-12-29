@@ -30,24 +30,25 @@ namespace MessagePublisher
 			{
 				_logger.LogInformation("Start publishing message ...");
 				await _busControl.StartAsync(source.Token).ConfigureAwait(false);
-				while (true)
-				{
-					var value = await Task.Run(() => {
-						Console.WriteLine("Enter message (or quit to exit)");
-						Console.Write("> ");
-						return Console.ReadLine();
-					}).ConfigureAwait(false);
+				// while (true)
+				// {
+				// 	var value = await Task.Run(() => {
+				// 		Console.WriteLine("Enter message (or quit to exit)");
+				// 		Console.Write("> ");
+				// 		return Console.ReadLine();
+				// 	}).ConfigureAwait(false);
 
-					if ("quit".Equals(value, StringComparison.OrdinalIgnoreCase))
-					{
-						break;
-					}
+				// 	if ("quit".Equals(value, StringComparison.OrdinalIgnoreCase))
+				// 	{
+				// 		break;
+				// 	}
 
-					await _publisherEndpoint.Publish<ISomethingHappened>(new {
-						Data = value,
-						Timestamp = DateTimeOffset.UtcNow
-					}).ConfigureAwait(false);
-				}
+				// 	await _publisherEndpoint.Publish<ISomethingHappened>(new {
+				// 		Data = value,
+				// 		Timestamp = DateTimeOffset.UtcNow
+				// 	}).ConfigureAwait(false);
+				// }
+				await _publisherEndpoint.Publish<ISomethingHappened>(new SomeEvent("goosfand")).ConfigureAwait(false);
 			}
 			catch (Exception ex)
 			{
@@ -59,5 +60,18 @@ namespace MessagePublisher
 				_logger.LogInformation("Finished!");
 			}
 		}
+	}
+
+	internal sealed class SomeEvent : ISomethingHappened
+	{
+		public SomeEvent(string data)
+		{
+			Data = data;
+			Timestamp = DateTimeOffset.UtcNow;
+		}
+
+		public string Data { get; }
+
+		public DateTimeOffset Timestamp { get; }
 	}
 }

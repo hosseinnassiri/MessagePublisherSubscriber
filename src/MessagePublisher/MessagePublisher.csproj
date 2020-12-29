@@ -6,14 +6,16 @@
 		<AnalysisLevel>latest</AnalysisLevel>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
+		<DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
+		<DockerfileContext>..\..</DockerfileContext>
 	</PropertyGroup>
 
 	<ItemGroup>
-		<PackageReference Include="MassTransit" Version="7.0.7" />
-		<PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.0.7" />
-		<PackageReference Include="MassTransit.MongoDb" Version="7.0.7" />
-		<PackageReference Include="MassTransit.Analyzers" Version="7.0.7" />
-		<PackageReference Include="MassTransit.RabbitMQ" Version="7.0.7" />
+		<PackageReference Include="MassTransit" Version="7.1.0" />
+		<PackageReference Include="MassTransit.Extensions.DependencyInjection" Version="7.1.0" />
+		<PackageReference Include="MassTransit.MongoDb" Version="7.1.0" />
+		<PackageReference Include="MassTransit.Analyzers" Version="7.1.0" />
+		<PackageReference Include="MassTransit.RabbitMQ" Version="7.1.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
@@ -25,6 +27,7 @@
 		<PackageReference Include="Microsoft.Extensions.Logging.Console" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="5.0.0" />
 		<PackageReference Include="Microsoft.Extensions.Options" Version="5.0.0" />
+		<PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
 	</ItemGroup>
 
 	<ItemGroup>

@@ -1,4 +1,5 @@
 using MassTransit;
+using MassTransit.RabbitMqTransport;
 using MessageContracts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -20,10 +21,10 @@ namespace MessageProcessor
 		private readonly IHostApplicationLifetime _hostApplicationLifetime;
 		private readonly IBusControl _busControl;
 		public Worker(
-		IServiceProvider serviceProvider,
-		IBusControl busControl,
-		IHostApplicationLifetime hostApplicationLifetime,
-		ILogger<Worker> logger)
+			IServiceProvider serviceProvider,
+			IBusControl busControl,
+			IHostApplicationLifetime hostApplicationLifetime,
+			ILogger<Worker> logger)
 		{
 			_serviceProvider = serviceProvider;
 			_hostApplicationLifetime = hostApplicationLifetime;
@@ -45,13 +46,13 @@ namespace MessageProcessor
 			{
 				while (!stoppingToken.IsCancellationRequested)
 				{
-					//using var scope = _serviceProvider.CreateScope();
-					//var processor = scope.ServiceProvider.GetRequiredService<>();
-					// PipelineProcessor
-					// process message
 					_logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-					await Task.Delay(5000, stoppingToken).ConfigureAwait(false);
+					await Task.Delay(10000, stoppingToken).ConfigureAwait(false);
 				}
+			}
+			catch (RabbitMqConnectionException ex)
+			{
+				_logger.LogError(ex, "Error in connecting to rabbitmq: {message}", ex.Message);
 			}
 			catch (OperationCanceledException ex)
 			{

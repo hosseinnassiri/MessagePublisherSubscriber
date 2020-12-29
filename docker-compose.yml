@@ -1,0 +1,61 @@
+version: '3.4'
+
+services:
+  rabbitmq:
+    container_name: rabbitmq
+    hostname: rabbitmq
+    ports:
+      - 5672:5672
+      - 15672:15672
+    environment:
+      - RABBITMQ_DEFAULT_USER=rabbit
+      - RABBITMQ_DEFAULT_PASS=rabbit
+    image: rabbitmq:3-management
+    networks:
+      - my-network-name
+    # healthcheck:
+    #     test: ["CMD", "curl", "-f", "http://localhost:15672"]
+    #     interval: 30s
+    #     timeout: 10s
+    #     retries: 5
+
+  mongo:
+    container_name: mongo
+    image: mongo:windowsservercore
+    restart: always
+    volumes:
+      - mongodb_data:c:/data/db
+    ports:
+      - 27018:27017
+    networks:
+      - my-network-name
+
+  messageprocessor:
+    image: ${DOCKER_REGISTRY-}messageprocessor
+    build:
+      context: .
+      dockerfile: src\MessageProcessor\Dockerfile
+    restart: on-failure
+    depends_on:
+      - mongo
+      - rabbitmq
+    networks:
+      - my-network-name
+
+  messagepublisher:
+    image: ${DOCKER_REGISTRY-}messagepublisher
+    build:
+      context: .
+      dockerfile: src\MessagePublisher\Dockerfile
+    restart: on-failure
+    depends_on:
+      - rabbitmq
+    networks:
+      - my-network-name
+
+volumes:
+  mongodb_data:
+    name: mongodata
+
+networks:
+  my-network-name:

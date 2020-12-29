@@ -1,0 +1,6 @@
+version: '3.4'
+
+services:
+  messageprocessor:
+    volumes:
+      - ${APPDATA}/Microsoft/UserSecrets:C:\Users\ContainerUser\AppData\Roaming\Microsoft\UserSecrets:ro

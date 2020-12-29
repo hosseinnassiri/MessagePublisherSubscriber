@@ -42,10 +42,6 @@ namespace MessageProcessor.BusConfiguration
 							endpoint.Bind(busSettings.RabbitMqSettings.PublishExchangeName);
 							endpoint.ConnectReceiveEndpointObserver(receiverObserver);
 						});
-						//config.ReceiveEndpoint($"{queueSettings.CommandConsumerQueueName}_skip", endpoint =>
-						//{
-						//  endpoint.Consumer<CheckPersonSanctionHitStatusCommandConsumer>(serviceProvider);
-						//});
 					})
 				);
 			});

@@ -21,6 +21,7 @@ To have a template for implementing Publish / Subscribe pattern in .net using Ra
 ## TODO
 1. add git hub action to the project
 1. use docker compose for the whole project
+1. add healthcheck for subscriber
 
 ## Prerequisites
 You should have a basic understanding of .Net Core worker service projects and RabbitMQ.
