@@ -12,16 +12,13 @@ namespace MessagePublisherApi.Controllers
 	[Route("[controller]")]
 	public class PublisherController : Controller
 	{
-		private readonly IBusControl _busControl;
 		private readonly IPublishEndpoint _publisherEndpoint;
 		private readonly ILogger<PublisherController> _logger;
 
 		public PublisherController(
-			IBusControl busControl,
 			IPublishEndpoint publisherEndpoint,
 			ILogger<PublisherController> logger)
 		{
-			_busControl = busControl;
 			_publisherEndpoint = publisherEndpoint;
 			_logger = logger;
 		}
@@ -32,7 +29,6 @@ namespace MessagePublisherApi.Controllers
 			try
 			{
 				_logger.LogInformation("Start publishing message ...");
-				await _busControl.StartAsync().ConfigureAwait(false);
 				await _publisherEndpoint.Publish<ISomethingHappened>(new SomeEvent(request.Data)).ConfigureAwait(false);
 
 				return Ok();
@@ -44,7 +40,6 @@ namespace MessagePublisherApi.Controllers
 			}
 			finally
 			{
-				await _busControl.StopAsync().ConfigureAwait(false);
 				_logger.LogInformation("Finished!");
 			}
 		}

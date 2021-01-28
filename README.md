@@ -18,12 +18,9 @@ Asynchronous messaging helps applications to handle failures more effectively, a
 ## Goals
 To have a template for implementing Publish / Subscribe pattern in .net using RabbitMQ as message broker, ready to be used in real applications.
 
-## TODO
-1. add git hub action for CI / CD
-1. add healthcheck for subscriber
-
 ## Prerequisites
-You should have a basic understanding of .Net Core worker service projects and RabbitMQ.
+You should have a basic understanding of .Net 5.0 worker service projects and RabbitMQ.
+TODO:
 
 ## MassTransit
 MassTransit is an open-source message bus framework for .NET which can route messages over MSMQ, RabbitMQ, Azure Service Bus, .... 
@@ -179,3 +176,7 @@ Configure MongoDb in the appsettings.json in **MessageProcessor** to store the r
 },
 ...
 ```
+
+## TODO
+1. add git hub action for CI / CD
+1. add healthcheck for subscriber

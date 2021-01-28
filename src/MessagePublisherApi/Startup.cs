@@ -44,6 +44,8 @@ namespace MessagePublisherApi
 			services.AddSingleton<IPublishEndpoint>(provider => provider.GetRequiredService<IBusControl>());
 			services.AddSingleton<ISendEndpointProvider>(provider => provider.GetRequiredService<IBusControl>());
 			services.AddSingleton<IBus>(provider => provider.GetRequiredService<IBusControl>());
+
+			services.AddMassTransitHostedService();
 		}
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
