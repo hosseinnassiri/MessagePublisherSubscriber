@@ -10,7 +10,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=rabbit
       - RABBITMQ_DEFAULT_PASS=rabbit
-    image: rabbitmq:3-management
+    image: micdenny/rabbitmq-windows
     networks:
       - my-network-name
     # healthcheck:

@@ -120,7 +120,7 @@ Now confiure the publisher web api project:
       - my-network-name
 ```
 
-Run the following docker-compose command from your command line or just simply run the whole application from Visual Studio 2019.
+Run the following docker-compose command from your command line or just simply run the whole application from Visual Studio 2022.
 ``` powershell
 docker-compose -f docker-compose.yml -f docker-compose.override.yml up -d
 ```

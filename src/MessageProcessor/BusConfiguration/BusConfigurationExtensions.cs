@@ -4,7 +4,6 @@ using MessageProcessor.Handlers;
 using MessageProcessor.Observers;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using MassTransit.MongoDbIntegration.Configuration;
 
 namespace MessageProcessor.BusConfiguration
 {
