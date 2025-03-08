@@ -1,4 +1,4 @@
-version: '3.4'
+version: '3.8'
 
 services:
   rabbitmq:
@@ -10,7 +10,7 @@ services:
     environment:
       - RABBITMQ_DEFAULT_USER=rabbit
       - RABBITMQ_DEFAULT_PASS=rabbit
-    image: micdenny/rabbitmq-windows
+    image: rabbitmq:latest
     networks:
       - my-network-name
     # healthcheck:
@@ -21,12 +21,13 @@ services:
 
   mongo:
     container_name: mongo
-    image: mongo:windowsservercore
+    image: mongo:latest
     restart: always
     volumes:
-      - mongodb_data:c:/data/db
+      - mongodb:/data/db
+      - mongodb_config:/data/configdb
     ports:
-      - 27018:27017
+      - 27019:27017
     networks:
       - my-network-name
 
@@ -53,8 +54,8 @@ services:
       - my-network-name
 
 volumes:
-  mongodb_data:
-    name: mongodata
+  mongodb:
+  mongodb_config:
 
 networks:
   my-network-name:

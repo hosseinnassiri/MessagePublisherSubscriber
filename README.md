@@ -1,5 +1,5 @@
 # Publish / Subscribe messaging
-A publish / subscribe pattern with .Net 5.0 Worker and using [MassTransit](https://masstransit-project.com/) library and RabbitMq for messaging.
+A publish / subscribe pattern with .Net 7.0 Worker and using [MassTransit](https://masstransit-project.com/) library and RabbitMq for messaging.
 
 ## Introduction
 In distributed architecture, different components of the system often need to communicate to other components and send some information about the events that happened on their side (An event is something that happened in a component, a change or an action that has taken place). They can notify interested consumer application(s) asynchronously, using  messages.
@@ -19,7 +19,7 @@ Asynchronous messaging helps applications to handle failures more effectively, a
 To have a template for implementing Publish / Subscribe pattern in .net using RabbitMQ as message broker, ready to be used in real applications.
 
 ## Prerequisites
-You should have a basic understanding of .Net 5.0 worker service projects and RabbitMQ.
+You should have a basic understanding of .Net worker service projects and RabbitMQ.
 TODO:
 
 ## MassTransit
@@ -66,7 +66,7 @@ rabbitmq:
     environment:
       - RABBITMQ_DEFAULT_USER=rabbit
       - RABBITMQ_DEFAULT_PASS=rabbit
-    image: rabbitmq:3-management
+    image: rabbitmq:micdenny/rabbitmq-windows
     networks:
       - my-network-name
 ```

@@ -22,27 +22,25 @@ namespace MessageProcessor.BusConfiguration
 
 			services.AddMassTransit(c => {
 				c.AddConsumer<SomethingHappenedHandler>();
-				c.AddBus(serviceProvider =>
-					Bus.Factory.CreateUsingRabbitMq(config => {
-						config.Host(busSettings.RabbitMqSettings.Host, host => {
-							host.Username(busSettings.RabbitMqSettings.UserName);
-							host.Password(busSettings.RabbitMqSettings.Password);
-						});
-						config.UseMongoDbAuditStore(busSettings.MongoDbAuditStore.Connection,
-							busSettings.MongoDbAuditStore.DatabaseName,
-							busSettings.MongoDbAuditStore.CollectionName
-						);
+				c.UsingRabbitMq((context, config) => {
+					config.Host(busSettings.RabbitMqSettings.Host, host => {
+						host.Username(busSettings.RabbitMqSettings.UserName);
+						host.Password(busSettings.RabbitMqSettings.Password);
+					});
+					config.UseMongoDbAuditStore(busSettings.MongoDbAuditStore.Connection,
+						busSettings.MongoDbAuditStore.DatabaseName,
+						busSettings.MongoDbAuditStore.CollectionName
+					);
 
-						var receiverObserver = serviceProvider.GetRequiredService<IReceiveEndpointObserver>();
-						config.Message<ISomethingHappened>(x =>
-							x.SetEntityName(busSettings.RabbitMqSettings.PublishExchangeName));
-						config.ReceiveEndpoint(busSettings.RabbitMqSettings.ListenerQueueName, endpoint => {
-							endpoint.Consumer<SomethingHappenedHandler>(serviceProvider);
-							endpoint.Bind(busSettings.RabbitMqSettings.PublishExchangeName);
-							endpoint.ConnectReceiveEndpointObserver(receiverObserver);
-						});
-					})
-				);
+					var receiverObserver = context.GetRequiredService<IReceiveEndpointObserver>();
+					config.Message<ISomethingHappened>(x =>
+						x.SetEntityName(busSettings.RabbitMqSettings.PublishExchangeName));
+					config.ReceiveEndpoint(busSettings.RabbitMqSettings.ListenerQueueName, endpoint => {
+						endpoint.Consumer<SomethingHappenedHandler>(context);
+						endpoint.Bind(busSettings.RabbitMqSettings.PublishExchangeName);
+						endpoint.ConnectReceiveEndpointObserver(receiverObserver);
+					});
+				});
 			});
 			services.AddSingleton<IPublishEndpoint>(provider => provider.GetRequiredService<IBusControl>());
 			services.AddSingleton<ISendEndpointProvider>(provider => provider.GetRequiredService<IBusControl>());

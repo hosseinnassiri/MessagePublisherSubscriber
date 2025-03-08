@@ -42,16 +42,14 @@ namespace MessagePublisher
 			var busSettings = busSettingsSection.Get<MassTransitSettings>();
 
 			services.AddMassTransit(c => {
-				c.AddBus(serviceProvider =>
-					Bus.Factory.CreateUsingRabbitMq(config => {
-						config.Host(busSettings.RabbitMqSettings.Host, host => {
-							host.Username(busSettings.RabbitMqSettings.UserName);
-							host.Password(busSettings.RabbitMqSettings.Password);
-						});
+				c.UsingRabbitMq((context, config) => {
+					config.Host(busSettings.RabbitMqSettings.Host, host => {
+						host.Username(busSettings.RabbitMqSettings.UserName);
+						host.Password(busSettings.RabbitMqSettings.Password);
+					});
 
-						config.Message<ISomethingHappened>(x => x.SetEntityName(busSettings.RabbitMqSettings.PublishExchangeName));
-					})
-				);
+					config.Message<ISomethingHappened>(x => x.SetEntityName(busSettings.RabbitMqSettings.PublishExchangeName));
+				});
 			});
 			services.AddSingleton<IPublishEndpoint>(provider => provider.GetRequiredService<IBusControl>());
 			services.AddSingleton<ISendEndpointProvider>(provider => provider.GetRequiredService<IBusControl>());
